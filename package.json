@@ -1,0 +1,14 @@
+{
+  "name": "openquiz-premium-remover",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Chrome extension that removes the premium blur+lock overlay from openquiz.ai study-set pages.",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "clean": "rm -rf dist"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.5"
+  }
+}
