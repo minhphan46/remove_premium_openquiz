@@ -2,23 +2,33 @@
 /**
  * Content script for OpenQuiz premium-blur remover.
  *
- * For every <div class="relative cursor-pointer group"> on a
- * https://openquiz.ai/study-set/{n} page that contains the lock SVG overlay,
- * this script:
- *   1. Removes the `blur-sm` class from the inner
- *      <div class="blur-sm select-none pointer-events-none"> so the text is
- *      readable.
- *   2. Removes the sibling overlay div (the one with class
- *      "absolute inset-0 flex items-center justify-center" that wraps the
- *      lock icon) so the user can interact with the card.
+ * openquiz.ai gates premium content behind two different components:
+ *
+ *   1. The "lock card": a <div class="relative cursor-pointer group"> that
+ *      wraps a blurred content div plus an absolutely-positioned overlay
+ *      holding the lock icon. Both the blur and the overlay must go.
+ *
+ *   2. The inline blurred definition: a bare
+ *      <span class="blur-sm cursor-pointer">meaning; meaning; meaning</span>
+ *      inside the "noun - /prəˈnaʊns/ - <definitions>" line. There is no
+ *      lock overlay here — only the blur.
+ *
+ * So the script does two independent passes:
+ *   - strip `blur-sm` from EVERY element that carries it (covers both cases,
+ *     plus any future component that reuses the same class), and
+ *   - remove the lock overlay from cards that actually contain the lock SVG.
  *
  * A MutationObserver re-runs the cleanup whenever the page DOM changes,
- * because openquiz.ai is a SPA and re-renders cards on interaction.
+ * because openquiz.ai is a SPA and re-renders cards on interaction. It also
+ * watches `class` attributes, so a re-render that re-adds `blur-sm` to an
+ * existing element is undone too.
  */
-/** CSS selector for the card container we care about. */
+/** CSS selector for the lock-overlay card container. */
 const CARD_SELECTOR = "div.relative.cursor-pointer.group";
-/** Class name we must strip from the inner content wrapper. */
+/** Class name we must strip wherever it appears. */
 const BLUR_CLASS = "blur-sm";
+/** Selector for any element still carrying the blur class. */
+const BLUR_SELECTOR = `.${BLUR_CLASS}`;
 /** Class names that uniquely identify the lock-overlay wrapper div. */
 const OVERLAY_CLASSES = [
     "absolute",
@@ -27,48 +37,62 @@ const OVERLAY_CLASSES = [
     "items-center",
     "justify-center",
 ];
-/** Selectors used to locate the lock SVG (defensive: confirms we have the right card). */
+/** Selector for the lock-overlay wrapper div. */
+const OVERLAY_SELECTOR = OVERLAY_CLASSES.map((c) => `.${c}`).join("");
+/** Selector used to locate the lock SVG (defensive: confirms we have the right card). */
 const LOCK_SVG_SELECTOR = "svg.lucide-lock";
+/**
+ * Strips `blur-sm` from every element that has it, anywhere on the page.
+ *
+ * This intentionally does not care which component the element belongs to:
+ * the blurred definition <span>, the blurred example <div> inside a lock
+ * card, and any other component openquiz.ai blurs later are all handled by
+ * the same pass. Idempotent.
+ */
+function removeAllBlur(root = document) {
+    const blurred = root.querySelectorAll(BLUR_SELECTOR);
+    blurred.forEach((el) => el.classList.remove(BLUR_CLASS));
+    return blurred.length;
+}
 /**
  * Returns true if the given card element actually contains the lock overlay
  * we want to remove (defensive: avoids touching unrelated cards).
  */
 function isPremiumCard(card) {
-    return card.querySelector(OVERLAY_CLASSES.map((c) => `.${c}`).join("")) !== null
-        && card.querySelector(LOCK_SVG_SELECTOR) !== null;
+    return (card.querySelector(OVERLAY_SELECTOR) !== null &&
+        card.querySelector(LOCK_SVG_SELECTOR) !== null);
 }
 /**
- * Removes the premium blur and lock overlay from one card. Idempotent —
- * safe to call multiple times on the same card.
+ * Removes the lock-icon overlay from every premium card so the card becomes
+ * interactive again. Idempotent.
  */
-function unlockCard(card) {
-    // 1. Strip "blur-sm" from the inner content wrapper.
-    const blurred = card.querySelector(`.${BLUR_CLASS}`);
-    if (blurred) {
-        blurred.classList.remove(BLUR_CLASS);
-    }
-    // 2. Remove the overlay div (the one containing the lock icon).
-    const overlay = card.querySelector(OVERLAY_CLASSES.map((c) => `.${c}`).join(""));
-    if (overlay && overlay.parentElement === card) {
-        overlay.remove();
-    }
-}
-/** Runs the cleanup against every card currently in the DOM. */
-function unlockAllCards() {
-    const cards = document.querySelectorAll(CARD_SELECTOR);
-    cards.forEach((card) => {
-        if (isPremiumCard(card)) {
-            unlockCard(card);
+function removeLockOverlays(root = document) {
+    root.querySelectorAll(CARD_SELECTOR).forEach((card) => {
+        if (!isPremiumCard(card)) {
+            return;
+        }
+        const overlay = card.querySelector(OVERLAY_SELECTOR);
+        if (overlay && overlay.parentElement === card) {
+            overlay.remove();
         }
     });
 }
+/** Runs both cleanup passes against the current DOM. */
+function unlockPage() {
+    removeAllBlur();
+    removeLockOverlays();
+}
 /**
- * Returns true if the given mutation might have added new premium cards we
- * need to clean up. We only need to react to added nodes — attribute
- * changes on existing nodes are handled by the next MutationObserver tick
- * for free.
+ * Returns true if the given mutation might have (re-)introduced premium
+ * gating we need to clean up: either a newly added subtree containing a
+ * blurred element / lock card, or a `class` attribute change that put
+ * `blur-sm` back on an existing element.
  */
-function mutationTouchesCardSubtree(mutation) {
+function mutationNeedsCleanup(mutation) {
+    if (mutation.type === "attributes") {
+        return (mutation.target instanceof Element &&
+            mutation.target.classList.contains(BLUR_CLASS));
+    }
     if (mutation.type !== "childList") {
         return false;
     }
@@ -76,7 +100,10 @@ function mutationTouchesCardSubtree(mutation) {
         if (!(node instanceof Element)) {
             continue;
         }
-        if (node.matches?.(CARD_SELECTOR) || node.querySelector?.(CARD_SELECTOR)) {
+        if (node.matches?.(BLUR_SELECTOR) ||
+            node.matches?.(CARD_SELECTOR) ||
+            node.querySelector?.(BLUR_SELECTOR) ||
+            node.querySelector?.(CARD_SELECTOR)) {
             return true;
         }
     }
@@ -84,11 +111,11 @@ function mutationTouchesCardSubtree(mutation) {
 }
 /** Bootstraps the cleanup + observer as soon as the document is ready. */
 function bootstrap() {
-    unlockAllCards();
+    unlockPage();
     const observer = new MutationObserver((mutations) => {
         for (const mutation of mutations) {
-            if (mutationTouchesCardSubtree(mutation)) {
-                unlockAllCards();
+            if (mutationNeedsCleanup(mutation)) {
+                unlockPage();
                 break;
             }
         }
@@ -96,6 +123,8 @@ function bootstrap() {
     observer.observe(document.body, {
         childList: true,
         subtree: true,
+        attributes: true,
+        attributeFilter: ["class"],
     });
 }
 if (document.readyState === "loading") {

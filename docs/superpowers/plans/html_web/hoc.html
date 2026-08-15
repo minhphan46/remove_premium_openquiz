@@ -1,0 +1,355 @@
+<div id="root">
+    <div role="region" aria-label="Notifications (F8)" tabindex="-1" style="pointer-events: none;">
+        <ol tabindex="-1"
+            class="fixed top-0 z-[10020] flex max-h-screen w-full flex-col-reverse p-4 sm:bottom-0 sm:right-0 sm:top-auto sm:flex-col md:max-w-[420px]">
+        </ol>
+    </div>
+    <section aria-label="Notifications alt+T" tabindex="-1" aria-live="polite" aria-relevant="additions text"
+        aria-atomic="false"></section>
+    <div class="fixed right-0 z-[9998] lg:hidden print:hidden bottom-[calc(4.75rem+env(safe-area-inset-bottom,0px))] md:bottom-6"
+        style="touch-action: pan-y;">
+        <div
+            class="flex items-center rounded-l-full shadow-lg overflow-hidden bg-primary text-primary-foreground transition-[transform,opacity] duration-300 ease-out translate-x-0 opacity-100">
+            <button type="button" aria-label="Collapse"
+                class="flex items-center justify-center w-7 h-9 shrink-0 bg-primary text-primary-foreground active:opacity-80"><svg
+                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide lucide-chevron-right w-4 h-4">
+                    <path d="m9 18 6-6-6-6"></path>
+                </svg></button><button type="button" tabindex="0" aria-hidden="false"
+                class="flex items-center h-9 pl-1 pr-3 text-xs font-medium whitespace-nowrap bg-primary text-primary-foreground border-l border-primary-foreground/20 active:opacity-80">Tra
+                từ</button></div>
+    </div>
+    <div class="flex min-h-screen bg-background overflow-x-hidden">
+        <header
+            class="fixed top-0 left-0 right-0 h-16 bg-card border-b border-border flex items-center px-6 gap-6 z-50">
+            <div class="w-10 h-10 flex items-center justify-center cursor-pointer"><img src="/logo.png" alt="Logo"
+                    class="w-10 h-10 object-contain rounded-lg" width="40" height="40"></div>
+            <nav class="flex gap-2 flex-1"><button
+                    class="px-4 h-10 rounded-lg transition-colors flex items-center justify-center gap-2 hover:bg-secondary text-foreground"><svg
+                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="lucide lucide-house w-4 h-4">
+                        <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path>
+                        <path
+                            d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z">
+                        </path>
+                    </svg><span class="text-sm font-medium">Trang chủ</span></button><button
+                    class="px-4 h-10 rounded-lg transition-colors flex items-center justify-center gap-2 hover:bg-secondary text-foreground"><svg
+                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="lucide lucide-graduation-cap w-4 h-4">
+                        <path
+                            d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z">
+                        </path>
+                        <path d="M22 10v6"></path>
+                        <path d="M6 12.5V16a6 3 0 0 0 12
+0v-3.5"></path>
+                    </svg><span class="text-sm font-medium">Khoá học</span></button><button
+                    class="px-4 h-10 rounded-lg transition-colors flex items-center justify-center gap-2 hover:bg-secondary text-foreground"
+                    data-tour="my-created-btn"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" class="lucide lucide-folder w-4 h-4">
+                        <path
+                            d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z">
+                        </path>
+                    </svg><span class="text-sm font-medium">Đã tạo</span></button><button
+                    class="px-4 h-10 rounded-lg transition-colors flex items-center justify-center gap-2 hover:bg-secondary text-foreground"><svg
+                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="lucide lucide-users w-4 h-4">
+                        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                        <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                    </svg><span class="text-sm font-medium">Lớp học</span></button><button
+                    class="px-4 h-10 rounded-lg transition-colors flex items-center justify-center gap-2 hover:bg-secondary text-foreground"
+                    data-tour="ranking-btn">
+                    <div class="w-4 h-4 flex items-center justify-center">
+                        <div style="width: 16px; height: 16px; transform: scale(1.8);">
+                            <div style="width: 100%; height: 100%; line-height: 0;"><canvas style="width: 100%;
+height: 100%;" width="50" height="50"></canvas></div>
+                        </div>
+                    </div><span class="text-sm font-medium">Xếp hạng</span>
+                </button></nav><button
+                class="items-center justify-center gap-2 whitespace-nowrap font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 bg-primary text-primary-foreground hover:bg-primary/90 rounded-md text-xs h-8 px-3 hidden lg:inline-flex"
+                title="Tra từ"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide lucide-languages w-3.5 h-3.5 mr-1.5">
+                    <path d="m5 8 6 6"></path>
+                    <path d="m4 14 6-6 2-3"></path>
+                    <path d="M2 5h12"></path>
+                    <path d="M7 2h1"></path>
+                    <path d="m22 22-5-10-5 10"></path>
+                    <path d="M14 18h6"></path>
+                </svg>Tra từ</button><button
+                class="inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 hover:bg-accent hover:text-accent-foreground rounded-md text-xs h-8 px-3 text-muted-foreground"
+                title="Hình nền"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide lucide-image w-3.5 h-3.5 mr-1.5">
+                    <rect width="18" height="18" x="3" y="3" rx="2" ry="2"></rect>
+                    <circle cx="9" cy="9" r="2"></circle>
+                    <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"></path>
+                </svg><span class="hidden lg:inline">Hình nền</span></button><button
+                class="inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 hover:bg-accent hover:text-accent-foreground rounded-md text-xs h-8 px-3 text-muted-foreground"><svg
+                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide lucide-message-square w-3.5 h-3.5 mr-1.5">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                </svg><span class="hidden lg:inline">Báo lỗi</span></button>
+        </header>
+        <main class="flex-1 pt-16 w-full">
+            <div class="container mx-auto px-6 py-6 max-w-4xl">
+                <div class="flex items-center justify-between mb-6"><button
+                        class="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm
+font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3"><svg
+                            xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="lucide lucide-arrow-left w-4 h-4 mr-2">
+                            <path d="m12 19-7-7 7-7"></path>
+                            <path d="M19 12H5"></path>
+                        </svg>Thoát</button><button
+                        class="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3"
+                        data-tour="study-settings-btn"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-settings w-4 h-4 mr-2">
+                            <path
+                                d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z">
+                            </path>
+                            <circle cx="12" cy="12" r="3"></circle>
+                        </svg>Cài đặt</button></div>
+                <div class="w-full mb-8">
+                    <div class="flex items-center gap-1">
+                        <div class="flex items-center text-xs text-muted-foreground px-1 shrink-0"><span
+                                class="text-[10px]">+7</span></div>
+                        <div class="flex-1 h-2.5 rounded-full bg-muted overflow-hidden relative" title="8/17 (4)">
+                            <div class="h-full transition-all duration-300 rounded-full bg-green-500"
+                                style="width: 100%;"></div>
+                        </div>
+                        <div class="flex-1 h-2.5 rounded-full bg-muted overflow-hidden relative" title="9/17 (4)">
+                            <div class="h-full transition-all duration-300 rounded-full bg-green-500"
+                                style="width: 100%;"></div>
+                        </div>
+                        <div class="flex-1 h-2.5 rounded-full bg-muted overflow-hidden relative" title="10/17 (4)">
+                            <div class="h-full transition-all duration-300 rounded-full bg-green-500"
+                                style="width: 100%;"></div>
+                        </div>
+                        <div class="flex-1 h-2.5 rounded-full bg-muted overflow-hidden relative" title="11/17 (4)">
+                            <div class="h-full transition-all duration-300 rounded-full bg-green-500"
+                                style="width: 100%;"></div>
+                        </div>
+                        <div class="flex-1 h-2.5 rounded-full bg-muted overflow-hidden relative" title="12/17 (4)">
+                            <div class="h-full transition-all duration-300 rounded-full bg-green-500"
+                                style="width: 100%;"></div>
+                        </div>
+                        <div class="flex-1 h-2.5 rounded-full bg-muted overflow-hidden relative" title="13/17 (4)">
+                            <div class="h-full transition-all duration-300 rounded-full bg-green-500"
+                                style="width: 100%;"></div>
+                        </div>
+                        <div class="flex-1 h-2.5 rounded-full bg-muted overflow-hidden relative" title="14/17 (5)">
+                            <div class="h-full transition-all duration-300 rounded-full bg-primary" style="width: 20%;">
+                            </div>
+                            <div class="absolute inset-0 flex">
+                                <div class="flex-1 border-r border-background/30 last:border-r-0"></div>
+                                <div class="flex-1 border-r border-background/30 last:border-r-0"></div>
+                                <div class="flex-1 border-r border-background/30 last:border-r-0"></div>
+                                <div class="flex-1 border-r border-background/30 last:border-r-0"></div>
+                                <div class="flex-1 border-r border-background/30 last:border-r-0"></div>
+                            </div>
+                        </div>
+                        <div class="flex-1 h-2.5 rounded-full bg-muted overflow-hidden relative" title="15/17 (5)">
+                            <div class="h-full transition-all duration-300 rounded-full bg-transparent"
+                                style="width: 0%;"></div>
+                        </div>
+                        <div class="flex-1 h-2.5 rounded-full bg-muted overflow-hidden relative" title="16/17 (5)">
+                            <div class="h-full transition-all duration-300 rounded-full bg-transparent"
+                                style="width: 0%;"></div>
+                        </div>
+                        <div class="flex-1 h-2.5 rounded-full bg-muted overflow-hidden relative" title="17/17 (5)">
+                            <div class="h-full transition-all duration-300 rounded-full bg-transparent"
+                                style="width: 0%;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-6">
+                    <div class="rounded-lg border bg-card text-card-foreground shadow-sm p-4 md:p-6 space-y-6">
+                        <div class="text-left space-y-2">
+                            <div class="flex md:hidden justify-end items-center gap-1 mb-2">
+                                <div class="flex items-center" data-state="closed"><button type="button" role="switch"
+                                        aria-checked="true" data-state="checked" value="on"
+                                        class="peer inline-flex shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors data-[state=unchecked]:bg-gray-300 dark:data-[state=unchecked]:bg-gray-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:cursor-not-allowed disabled:opacity-50 h-6 w-11 scale-[0.6] data-[state=checked]:bg-primary"><span
+                                            data-state="checked"
+                                            class="pointer-events-none block rounded-full bg-white shadow-lg ring-0 transition-transform h-5 w-5 data-[state=checked]:translate-x-5 data-[state=unchecked]:translate-x-0"></span></button>
+                                </div><button class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 hover:bg-accent
+hover:text-accent-foreground shrink-0 h-8 w-8 p-0" title="Nghe phát âm" data-state="closed"><svg
+                                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" class="lucide lucide-volume2 h-4 w-4">
+                                        <path
+                                            d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z">
+                                        </path>
+                                        <path d="M16 9a5 5 0 0 1 0 6"></path>
+                                        <path d="M19.364 18.364a9 9 0 0 0 0-12.728"></path>
+                                    </svg></button><button
+                                    class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 hover:bg-accent hover:text-accent-foreground shrink-0 h-8 w-8 p-0"><svg
+                                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" class="lucide lucide-star h-4 w-4">
+                                        <path
+                                            d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z">
+                                        </path>
+                                    </svg></button>
+                            </div>
+                            <div class="hidden md:flex justify-end items-center gap-1 mb-1">
+                                <div class="flex items-center" data-state="closed"><button type="button" role="switch"
+                                        aria-checked="true" data-state="checked" value="on"
+                                        class="peer inline-flex shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors data-[state=unchecked]:bg-gray-300 dark:data-[state=unchecked]:bg-gray-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:cursor-not-allowed disabled:opacity-50 h-6 w-11 scale-[0.7] data-[state=checked]:bg-primary"><span
+                                            data-state="checked"
+                                            class="pointer-events-none block rounded-full bg-white shadow-lg ring-0 transition-transform h-5 w-5 data-[state=checked]:translate-x-5 data-[state=unchecked]:translate-x-0"></span></button>
+                                </div><button
+                                    class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 hover:bg-accent hover:text-accent-foreground shrink-0 h-8 w-8 p-0"
+                                    title="Nghe phát âm" data-state="closed"><svg xmlns="http://www.w3.org/2000/svg"
+                                        width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                        class="lucide lucide-volume2 h-4 w-4">
+                                        <path
+                                            d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z">
+                                        </path>
+                                        <path d="M16 9a5 5 0 0 1 0 6"></path>
+                                        <path d="M19.364 18.364a9 9 0 0 0 0-12.728"></path>
+                                    </svg></button><button
+                                    class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 hover:bg-accent hover:text-accent-foreground shrink-0 h-8 w-8 p-0"><svg
+                                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" class="lucide lucide-star h-4 w-4">
+                                        <path
+                                            d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z">
+                                        </path>
+                                    </svg></button>
+                            </div>
+                            <div class="relative">
+                                <h2 class="text-xl font-bold md:text-3xl md:leading-snug"><span><span
+                                            class="cursor-pointer underline decoration-dotted underline-offset-2 hover:decoration-solid transition-all">cover</span></span>
+                                </h2>
+                            </div>
+                            <p class="text-sm text-muted-foreground relative"><span
+                                    class="cursor-pointer underline decoration-dotted underline-offset-2 transition-all duration-300 inline-block">verb</span><span>
+                                    - </span><span
+                                    class="cursor-pointer underline decoration-dotted underline-offset-2 transition-all duration-300 inline-block">/ˈkʌvə(r)/</span>
+                            </p>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="relative"><input
+                                    class="flex h-10 w-full rounded-md border-input px-3 ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 text-lg py-6 text-center border-0 focus-visible:ring-1 md:text-2xl md:leading-relaxed md:py-7 bg-yellow-50 dark:bg-yellow-950/30 cursor-default"
+                                    placeholder="Nhập câu trả lời của bạn..." value="bao phủ" readonly="">
+                                <div class="absolute right-4 top-1/2 -translate-y-1/2"><svg
+                                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        class="lucide lucide-circle-check w-6 h-6 text-yellow-600">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <path d="m9 12 2 2 4-4"></path>
+                                    </svg></div>
+                            </div>
+                            <div class="bg-yellow-50 dark:bg-yellow-950/30 rounded-lg p-4 space-y-3">
+                                <p
+                                    class="text-sm font-medium text-yellow-900 dark:text-yellow-100 md:text-lg md:leading-relaxed">
+                                    ✓ Câu trả lời của bạn đúng!</p>
+                                <p class="text-sm text-yellow-800 dark:text-yellow-200 md:text-lg md:leading-relaxed">
+                                    Đáp án đầy đủ: <span class="font-bold">che, bao phủ; bìa (sách, tạp chí)</span></p>
+                                <div class="relative cursor-pointer group">
+                                    <div class="select-none pointer-events-none blur-sm">
+                                        <div class="pt-2 border-t border-yellow-200 dark:border-yellow-800">
+                                            <div class="flex items-start justify-between gap-2">
+                                                <p
+                                                    class="text-sm text-yellow-900 dark:text-yellow-100 flex-1 whitespace-pre-line md:text-base md:leading-relaxed">
+                                                    <span class="font-medium">Ví dụ:</span> <span class=""><span><span
+                                                                class="cursor-pointer underline decoration-dotted underline-offset-2 hover:decoration-solid transition-all">He</span></span><span>
+                                                        </span><span><span
+                                                                class="cursor-pointer underline decoration-dotted underline-offset-2 hover:decoration-solid transition-all">used</span></span><span>
+                                                        </span><span><span
+                                                                class="cursor-pointer underline decoration-dotted underline-offset-2 hover:decoration-solid transition-all">a</span></span><span>
+                                                        </span><span><span
+                                                                class="cursor-pointer underline decoration-dotted underline-offset-2 hover:decoration-solid transition-all">blanket</span></span><span>
+                                                        </span><span><span
+                                                                class="cursor-pointer underline decoration-dotted underline-offset-2 hover:decoration-solid transition-all">to</span></span><span>
+                                                        </span><span><span
+                                                                class="cursor-pointer underline decoration-dotted underline-offset-2 hover:decoration-solid transition-all">cover</span></span><span>
+                                                        </span><span><span
+                                                                class="cursor-pointer underline decoration-dotted underline-offset-2 hover:decoration-solid transition-all">himself</span></span><span>
+                                                        </span><span><span
+                                                                class="cursor-pointer underline decoration-dotted underline-offset-2 hover:decoration-solid transition-all">from</span></span><span>
+                                                        </span><span><span
+                                                                class="cursor-pointer underline decoration-dotted underline-offset-2 hover:decoration-solid transition-all">the</span></span><span>
+                                                        </span><span><span
+                                                                class="cursor-pointer underline decoration-dotted underline-offset-2 hover:decoration-solid transition-all">cold</span></span><span>.</span><span></span></span>
+                                                </p>
+                                                <div class="flex gap-1"><button
+                                                        class="text-yellow-700 dark:text-yellow-300 hover:text-yellow-900 dark:hover:text-yellow-100 transition-colors flex-shrink-0"
+                                                        aria-label="Speak example" data-state="closed"><svg
+                                                            xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                            stroke-width="2" stroke-linecap="round"
+                                                            stroke-linejoin="round"
+                                                            class="lucide lucide-volume2 w-4 h-4">
+                                                            <path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416
+8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"></path>
+                                                            <path d="M16 9a5 5 0 0 1 0 6"></path>
+                                                            <path d="M19.364 18.364a9 9 0 0 0 0-12.728"></path>
+                                                        </svg></button><button
+                                                        class="text-yellow-700 dark:text-yellow-300 hover:text-yellow-900 dark:hover:text-yellow-100 transition-colors flex-shrink-0"
+                                                        aria-label="Dịch"><svg xmlns="http://www.w3.org/2000/svg"
+                                                            width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                            stroke="currentColor" stroke-width="2"
+                                                            stroke-linecap="round" stroke-linejoin="round"
+                                                            class="lucide lucide-languages w-4 h-4">
+                                                            <path d="m5 8 6 6"></path>
+                                                            <path d="m4 14 6-6 2-3"></path>
+                                                            <path d="M2 5h12"></path>
+                                                            <path d="M7 2h1"></path>
+                                                            <path d="m22 22-5-10-5 10"></path>
+                                                            <path d="M14 18h6"></path>
+                                                        </svg></button></div>
+                                            </div>
+                                        </div>
+                                        <div class="pt-2 border-t border-yellow-200 dark:border-yellow-800">
+                                            <p class="text-sm text-yellow-900 dark:text-yellow-100"><span
+                                                    class="font-medium">Từ đồng nghĩa:</span> <span
+                                                    class=""><span><span><span
+                                                                class="cursor-pointer underline decoration-dotted underline-offset-2 hover:decoration-solid transition-all">hide</span></span>;
+                                                    </span><span><span><span
+                                                                class="cursor-pointer underline decoration-dotted underline-offset-2 hover:decoration-solid transition-all">shield</span></span>;
+                                                    </span><span><span><span
+                                                                class="cursor-pointer underline decoration-dotted underline-offset-2 hover:decoration-solid transition-all">protect</span></span></span></span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="absolute inset-0 flex items-center justify-center">
+                                        <div
+                                            class="bg-gray-900/90 dark:bg-gray-800/90 rounded-full p-1 group-hover:scale-110 transition-transform shadow-lg">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round"
+                                                class="lucide lucide-lock w-3 h-3 text-white">
+                                                <rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect>
+                                                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                            </svg></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="space-y-2"><button
+                                    class="inline-flex items-center justify-center gap-2 whitespace-nowrap ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 h-11 rounded-md px-8 w-full py-6 text-lg bg-blue-100 hover:bg-blue-100 border-2 border-transparent hover:border-blue-300 transition-all text-foreground font-semibold">Tiếp
+                                    tục</button><button
+                                    class="inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-11 rounded-md px-8 w-full py-6 text-lg">Tôi
+                                    trả lời sai<kbd
+                                        class="ml-2 hidden md:inline-block px-1.5 py-0.5 bg-muted rounded text-xs font-sans">Tab</kbd></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-center gap-4 text-sm text-muted-foreground"><span>Đã hoàn thành: 47 /
+                        60</span><span>•</span><span>Câu hỏi: 53 / 72</span></div>
+            </div>
+        </main>
+    </div>
+</div>
