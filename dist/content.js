@@ -16,13 +16,17 @@
  * So the script does two independent passes:
  *   - strip `blur-sm` from EVERY element that carries it (covers both cases,
  *     plus any future component that reuses the same class), and
- *   - remove every overlay descendant (the `absolute inset-0 ...` wrapper
- *     around the lock icon) from cards that actually contain the lock SVG.
+ *   - mark every overlay descendant (the `absolute inset-0 ...` wrapper
+ *     around the lock icon) as hidden.
  *
- * A MutationObserver re-runs the cleanup whenever the page DOM changes,
- * because openquiz.ai is a SPA and re-renders cards on interaction. It also
- * watches `class` attributes, so a re-render that re-adds `blur-sm` or the
- * overlay classes to an existing element is undone too.
+ * We deliberately keep the overlay node in the DOM instead of removing a
+ * React-owned node. Removing it can desynchronise React's virtual DOM and is
+ * the reason cleanup may stop working after several questions.
+ *
+ * A MutationObserver watches the document element (not the initial body) and
+ * re-runs a coalesced cleanup after every relevant DOM update. The companion
+ * content.css is a permanent fallback, so newly rendered content is readable
+ * even before the observer callback runs or if the SPA replaces its body.
  */
 /** CSS selector for the lock-overlay card container. */
 const CARD_SELECTOR = "div.relative.cursor-pointer.group";
@@ -42,10 +46,8 @@ const OVERLAY_CLASS_NAMES = [
 const OVERLAY_SELECTOR = OVERLAY_CLASS_NAMES.map((c) => `.${c}`).join("");
 /** Selector used to locate the lock SVG (defensive: confirms we have the right card). */
 const LOCK_SVG_SELECTOR = "svg.lucide-lock";
-/** Returns true if `el` carries all five overlay classes (any order, extras allowed). */
-function isOverlayElement(el) {
-    return OVERLAY_CLASS_NAMES.every((c) => el.classList.contains(c));
-}
+/** Attribute used by content.css to hide an overlay without deleting it. */
+const UNLOCKED_OVERLAY_ATTRIBUTE = "data-openquiz-unlocked-overlay";
 /**
  * Strips `blur-sm` from every element that has it, anywhere on the page.
  *
@@ -67,69 +69,54 @@ function isPremiumCard(card) {
     return card.querySelector(LOCK_SVG_SELECTOR) !== null;
 }
 /**
- * Removes every lock-icon overlay descendant from each premium card so the
- * card becomes interactive again. Idempotent. We use querySelectorAll +
- * `remove()` rather than asserting a direct-child relationship because the
- * SPA occasionally wraps the overlay an extra level deep.
+ * Marks every lock-icon overlay descendant as hidden so the card becomes
+ * interactive again. The node stays in place to avoid breaking React's DOM
+ * bookkeeping. Idempotent.
  */
-function removeLockOverlays(root = document) {
+function hideLockOverlays(root = document) {
+    let hiddenCount = 0;
     root.querySelectorAll(CARD_SELECTOR).forEach((card) => {
         if (!isPremiumCard(card)) {
             return;
         }
         const overlays = card.querySelectorAll(OVERLAY_SELECTOR);
-        overlays.forEach((overlay) => overlay.remove());
+        overlays.forEach((overlay) => {
+            if (overlay.querySelector(LOCK_SVG_SELECTOR) === null) {
+                return;
+            }
+            overlay.setAttribute(UNLOCKED_OVERLAY_ATTRIBUTE, "");
+            hiddenCount += 1;
+        });
     });
+    return hiddenCount;
 }
 /** Runs both cleanup passes against the current DOM. */
 function unlockPage() {
     removeAllBlur();
-    removeLockOverlays();
-}
-/**
- * Returns true if the given mutation might have (re-)introduced premium
- * gating we need to clean up: either a newly added subtree containing a
- * blurred element / lock card / overlay, or a `class` attribute change that
- * put `blur-sm` or the overlay classes back on an existing element.
- */
-function mutationNeedsCleanup(mutation) {
-    if (mutation.type === "attributes") {
-        if (!(mutation.target instanceof Element)) {
-            return false;
-        }
-        return (mutation.target.classList.contains(BLUR_CLASS) ||
-            isOverlayElement(mutation.target));
-    }
-    if (mutation.type !== "childList") {
-        return false;
-    }
-    for (const node of Array.from(mutation.addedNodes)) {
-        if (!(node instanceof Element)) {
-            continue;
-        }
-        if (node.matches?.(BLUR_SELECTOR) ||
-            node.matches?.(CARD_SELECTOR) ||
-            isOverlayElement(node) ||
-            node.querySelector?.(BLUR_SELECTOR) ||
-            node.querySelector?.(CARD_SELECTOR) ||
-            node.querySelector?.(OVERLAY_SELECTOR)) {
-            return true;
-        }
-    }
-    return false;
+    hideLockOverlays();
 }
 /** Bootstraps the cleanup + observer as soon as the document is ready. */
 function bootstrap() {
     unlockPage();
+    let cleanupScheduled = false;
+    const scheduleCleanup = () => {
+        if (cleanupScheduled) {
+            return;
+        }
+        cleanupScheduled = true;
+        queueMicrotask(() => {
+            cleanupScheduled = false;
+            unlockPage();
+        });
+    };
     const observer = new MutationObserver((mutations) => {
-        for (const mutation of mutations) {
-            if (mutationNeedsCleanup(mutation)) {
-                unlockPage();
-                break;
-            }
+        const pageChanged = mutations.some((mutation) => mutation.type === "attributes" ||
+            (mutation.type === "childList" && mutation.addedNodes.length > 0));
+        if (pageChanged) {
+            scheduleCleanup();
         }
     });
-    observer.observe(document.body, {
+    observer.observe(document.documentElement, {
         childList: true,
         subtree: true,
         attributes: true,

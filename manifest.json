@@ -1,14 +1,15 @@
 {
   "manifest_version": 3,
   "name": "OpenQuiz Premium Remover",
-  "version": "0.1.0",
-  "description": "Removes the premium blur + lock overlay on openquiz.ai study-set pages so definitions and examples are readable without a paid account.",
+  "version": "0.1.2",
+  "description": "Removes the premium blur + lock overlay on openquiz.ai study pages so definitions and examples are readable without a paid account.",
   "icons": {},
   "content_scripts": [
     {
       "matches": [
-        "https://openquiz.ai/study-set/*"
+        "https://openquiz.ai/*"
       ],
+      "css": ["content.css"],
       "js": ["dist/content.js"],
       "run_at": "document_idle"
     }

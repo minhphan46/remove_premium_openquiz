@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>OpenQuiz remover SPA smoke test</title>
+    <link rel="stylesheet" href="../content.css">
+    <script src="../dist/content.js" defer></script>
+    <script defer>
+        window.addEventListener("load", async () => {
+            const fixtures = [
+                "../docs/superpowers/plans/html_web/hoc.html",
+                "../docs/superpowers/plans/html_web/hoc2.html",
+            ];
+            const results = [];
+
+            for (let index = 0; index < 10; index += 1) {
+                const response = await fetch(fixtures[index % fixtures.length]);
+                const html = await response.text();
+                const nextDocument = new DOMParser().parseFromString(html, "text/html");
+
+                document.body.replaceWith(nextDocument.body);
+                await new Promise((resolve) => requestAnimationFrame(resolve));
+
+                const overlays = Array.from(document.querySelectorAll(
+                    "div.relative.cursor-pointer.group " +
+                    "div.absolute.inset-0.flex.items-center.justify-center",
+                )).filter((overlay) => overlay.querySelector("svg.lucide-lock"));
+
+                results.push({
+                    render: index + 1,
+                    blurClassesRemaining: document.querySelectorAll(".blur-sm").length,
+                    overlaysFound: overlays.length,
+                    overlaysMarked: overlays.filter((overlay) =>
+                        overlay.hasAttribute("data-openquiz-unlocked-overlay")
+                    ).length,
+                    visibleOverlays: overlays.filter((overlay) =>
+                        getComputedStyle(overlay).display !== "none"
+                    ).length,
+                });
+            }
+
+            const passed = results.every((result) =>
+                result.blurClassesRemaining === 0 &&
+                result.overlaysFound > 0 &&
+                result.overlaysMarked === result.overlaysFound &&
+                result.visibleOverlays === 0
+            );
+            const report = document.createElement("pre");
+            report.id = "smoke-result";
+            report.dataset.passed = String(passed);
+            report.textContent = JSON.stringify({ passed, results }, null, 2);
+            document.body.replaceChildren(report);
+        });
+    </script>
+</head>
+<body></body>
+</html>

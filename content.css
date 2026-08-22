@@ -1,0 +1,15 @@
+/*
+ * Permanent SPA-safe fallback. The JavaScript still removes blur-sm and marks
+ * lock overlays, but these rules also cover the instant between a React render
+ * and the next MutationObserver callback.
+ */
+.blur-sm {
+    filter: none !important;
+}
+
+[data-openquiz-unlocked-overlay],
+div.relative.cursor-pointer.group
+    div.absolute.inset-0.flex.items-center.justify-center:has(svg.lucide-lock) {
+    display: none !important;
+    pointer-events: none !important;
+}
